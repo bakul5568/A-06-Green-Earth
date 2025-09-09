@@ -31,3 +31,44 @@ const hideSpinner = () => {
         spinner.remove();
     }
 };
+
+// Load Categories
+const getCategory = () => {
+    getData('https://openapi.programming-hero.com/api/categories')
+    .then(data => showCategory(data.categories));
+}
+
+const showCategory = (categories) => {
+    categoriesWrapper.innerHTML = '';
+    categories.forEach(category => {
+        const {id, category_name} = category;
+        const li = document.createElement('li');
+        li.className = "category-li text-base cursor-pointer p-2";
+        li.innerText = category_name;
+        li.onclick = () => getAllTrees(`https://openapi.programming-hero.com/api/category/${id}`);
+        categoriesWrapper.appendChild(li);
+    });
+}
+
+const loadDetails= async (id) => {
+    const url = `https://openapi.programming-hero.com/api/plant/${id}`;
+    console.log( url);
+    const data = await fetch(url);
+    const details= await data.json();
+    displayplantsDetails(details.plants);
+};
+const displayplantsDetails =  (detail) => {
+    console.log(detail);
+    const detailsBox = document.getElementById("details-container");
+    detailsBox.innerHTML = `
+    <div class=""> 
+    <h1 class="text-[20px] font-bold">${detail.name}</h1>
+    <img class="h-[150px] w-[100%]" src="${detail.image}" alt="">
+
+    <p><span class="text-[14px] font-bold">Category:</span>${detail.category} </p>
+    <p><span class="text-[14px] font-bold">Price:</span>$${detail.price} </p>
+    <p><span class="text-[14px] font-bold">Description: </span>${detail.description} </p>
+    
+    `;
+    document.getElementById("plant_details").showModal();
+}
