@@ -100,3 +100,45 @@ const showAllTrees = (plants) => {
 );
 }
 
+// Cart System
+let totalPrice = 0;
+const calculateCartTotals = target => {
+    const title = target.parentNode.querySelector('.tree-title').innerText;
+     alert( ` ${title} has been added to the cart`)
+    const price = parseInt(target.parentNode.querySelector('.tree-price').innerText);
+
+    cartItemWrapper.innerHTML +=  `
+        <div class="cart-item flex justify-between items-center bg-[#f0fdf4] py-2 px-3 mt-2">
+            <div>
+                <h5 class="text-sm font-semibold">${title}</h5>
+                <p class="opacity-50 text-base">৳<span class="cart-item-details-price">${price}</span></p>
+            </div>
+            <div class="cursor-pointer" onclick="removeCartItem(this, ${price})">
+                <img class=" w-6 h-6" src="./assets/close.png" alt="Close">
+            </div>
+        </div>`;
+    totalPrice += price;
+    updateCartTotal();
+}
+
+const removeCartItem = (item, price) => {
+    item.parentNode.remove();
+    totalPrice -= price;
+    updateCartTotal();
+}
+
+const updateCartTotal = () => {
+    const cartItems = document.getElementsByClassName('cart-item');
+    if(cartItems.length > 0){
+        cartTotalWrapper.classList.remove('hidden');
+        cartTotalWrapper.innerHTML = `<p class="text-left">Total:</p><p>৳${totalPrice}</p>`;
+    } else {
+        cartTotalWrapper.classList.add('hidden');
+    }
+}
+
+// Init
+getCategory();
+getAllTrees('https://openapi.programming-hero.com/api/plants');
+
+
