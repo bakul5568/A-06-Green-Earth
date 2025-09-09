@@ -72,3 +72,31 @@ const displayplantsDetails =  (detail) => {
     `;
     document.getElementById("plant_details").showModal();
 }
+
+// Load All Trees
+const getAllTrees = (url) => {
+    getData(url).then(data => showAllTrees(data.plants));
+}
+
+const showAllTrees = (plants) => {
+    treeShowcaseWrapper.innerHTML = '';
+    plants.forEach(plant => {
+        const {id, image, name, description, category, price} = plant;
+        const shortDescription = description.split(' ').slice(0, 14).join(' ');
+        treeShowcaseWrapper.innerHTML += `
+            <div class="tree-showcase-item bg-white p-4 rounded-lg">
+                <img class="w-full h-[185px] rounded-lg object-cover" src="${image}" alt="${name}">
+                <h5 onclick="loadDetails(${id})"" class="tree-title text-sm font-semibold text-[#1f2937] mt-3 mb-2 cursor-pointer"> ${name}</h5>
+                <p class="text-xs text-[#1f2937] opacity-80">${shortDescription}</p>
+                <div class="flex justify-between mt-2 mb-3">
+                    <p class="text-sm bg-[#dcfce7] py-1 px-2 rounded-full text-[#15803D] font-medium">${category}</p>
+                    <p class="text-sm font-semibold">৳<span class="tree-price">${price}</span></p>
+                </div>
+                <button onclick= " calculateCartTotals(this)"   class="p-3 w-full bg-[#15803d] alert-btn text-white text-base rounded-full font-medium">Add to Cart</button>
+            </div>`;
+    }
+     
+
+);
+}
+
