@@ -62,12 +62,12 @@ const displayplantsDetails =  (detail) => {
     const detailsBox = document.getElementById("details-container");
     detailsBox.innerHTML = `
     <div class=""> 
-    <h1 class="text-[20px] font-bold">${detail.name}</h1>
-    <img class="h-[150px] w-[100%]" src="${detail.image}" alt="">
+    <h1 class="text-[20px] my-2 font-bold">${detail.name}</h1>
+    <img class="h-[185px] w-[100%] object-cover" src="${detail.image}" alt="">
 
-    <p><span class="text-[14px] font-bold">Category:</span>${detail.category} </p>
-    <p><span class="text-[14px] font-bold">Price:</span>$${detail.price} </p>
-    <p><span class="text-[14px] font-bold">Description: </span>${detail.description} </p>
+    <p><span class="text-[14px] my-2 font-bold">Category:</span>${detail.category} </p>
+    <p><span class="text-[14px] my-2 font-bold">Price:</span>$${detail.price} </p>
+    <p><span class="text-[14px] my-2 font-bold">Description: </span>${detail.description} </p>
     
     `;
     document.getElementById("plant_details").showModal();
